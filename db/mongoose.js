@@ -4,7 +4,8 @@ mongoose.connect('mongodb://localhost:27017/DevConnector',
 {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 },
 (error,client)=>{
   if(error)
