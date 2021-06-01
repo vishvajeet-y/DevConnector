@@ -28,17 +28,17 @@ const validateRegisterInput=(data)=>{
     {
         errors.email='Email field is required'
     }
-
+    if(!validator.isLength(data.password,{min:6,max:30}))
+    {
+        errors.password='Password must be atleast 6 character'
+    }
 
     if(validator.isEmpty(data.password))
     {
         errors.password='Password  field is required'
     }
     
-    if(!validator.isLength(data.password,{min:6,max:30}))
-    {
-        errors.password='Password must be atleast 6 character'
-    }
+   
 
     if(validator.isEmpty(data.password2))
     {
