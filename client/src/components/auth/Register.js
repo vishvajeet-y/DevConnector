@@ -1,6 +1,11 @@
-import React,{useState} from 'react'
-import axios from 'axios'
+import React,{useState,useEffect} from 'react'
+
+import { withRouter } from "react-router"
+import {connect} from 'react-redux'
 import classname from 'classnames'
+import {registerUser}  from '../../action/auth'
+
+
 const  Register=(props)=> {
 
   const [name,setname]=useState('')
@@ -18,24 +23,30 @@ const  Register=(props)=> {
       password,
       password2
     }
-     console.log(newUser)
-
-    axios.post('/api/users/register',newUser).then(res=>{
-      console.log(res.data)
-    }).catch((err)=>{
-     seterror(err.response.data)
-    })
-
-     setname('')
-     setemail('')
-     setpassword('')
-     setpassword2('')
+            console.log(newUser)
+            props.registerUser(newUser,props.history)
+     
+  
   }
+  useEffect(()=>{
+    // console.log('auth is running')
+   //  console.log(props.auth.isAuthenticate)
+     if(props.auth.isAuthenticate)
+     props.history.push('/dashboard')
+   },[props.auth.isAuthenticate])
+
+  useEffect(()=>{
+        //    console.log('useeffect is running');
+            seterror(props.error)
+         
+            },[props.error])
 
     return (
+    
         <div>
         <div className="register">
         <div className="container">
+       
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
@@ -92,4 +103,9 @@ const  Register=(props)=> {
     )
 }
 
-export default Register
+const mapStateToprops=(state)=>({
+   auth:state.auth,
+   error:state.errors
+})
+
+export default connect(mapStateToprops,{registerUser})(withRouter(Register))
