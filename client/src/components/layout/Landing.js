@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-class Landing extends Component {
-  render() {
+const Landing =(props)=> {
+  useEffect(()=>{
+    // console.log('auth is running')
+   //  console.log(props.auth.isAuthenticate)
+     if(props.auth.isAuthenticate)
+     props.history.push('/dashboard')
+   },[props.auth.isAuthenticate])
     return (
       <div className="landing">
         <div className="dark-overlay landing-inner text-light">
@@ -28,7 +34,11 @@ class Landing extends Component {
         </div>
       </div>
     );
-  }
+  
 }
 
-export default Landing;
+const mapStateToProps=(state)=>({
+  auth:state.auth
+})
+
+export default connect(mapStateToProps)( Landing);
