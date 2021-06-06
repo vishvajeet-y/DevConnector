@@ -9,7 +9,11 @@ import Footer from '../components/layout/Footer'
 import Landing from '../components/layout/Landing'
 import Login from '../components/auth/Login'
 import Register from '../components/auth/Register'
+import Dashboard from '../components/dashboard/Dashboard'
 import configurestore from '../store/configureStore'
+import { clearCurrentProfile } from '../action/profile'
+import PrivateRoute from './PrivateRoute'
+import CreateProfile from '../components/create-profile/CreateProfile'
 const store=configurestore()
 
 //Check for token
@@ -29,8 +33,8 @@ if(decoded.exp<currrentTime){
     //logout user
     store.dispatch(logoutUser())
 
-    //ToDo clear current profile
-
+    // clear current profile
+    store.dispatch(clearCurrentProfile())
     //Redirect to login
     window.location.href='./login'
 }
@@ -48,6 +52,8 @@ export const App = () => {
         <Route exact={true} path='/' component={Landing} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
+        <PrivateRoute path='/dashboard'  component={Dashboard}/>
+        <PrivateRoute path='/create-profile'  component={CreateProfile}/>
         </Switch>
          <Footer />
          

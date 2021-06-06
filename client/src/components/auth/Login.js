@@ -1,13 +1,21 @@
 import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
-import classname from 'classnames'
 import {LoginUser} from '../../action/auth'
-
+import TextFieldGroup from '../common/TextFieldGroup'
+import {GET_ERRORS} from '../../action/types'
 
  const Login=(props)=> {
   const [email,setemail]=useState('')
   const [password,setpassword]=useState('')
   const [error,seterror]=useState({})
+
+ const handleEmail=((e)=>{
+    setemail(e.target.value)
+  })
+ const  handlePassword=((e)=>{
+    setpassword(e.target.value)
+  })
+
   const onSubmit=(e)=>{
     e.preventDefault()
 
@@ -24,7 +32,10 @@ import {LoginUser} from '../../action/auth'
    // console.log('auth is running')
   //  console.log(props.auth.isAuthenticate)
     if(props.auth.isAuthenticate)
+    {
+    props.clearError()
     props.history.push('/dashboard')
+    }
   },[props.auth.isAuthenticate])
 
     useEffect(()=>{
@@ -40,28 +51,27 @@ import {LoginUser} from '../../action/auth'
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">Sign in to your DevConnector account</p>
-              <form onSubmit={onSubmit}>
-                <div className="form-group">
-                  <input type="email" className={classname("form-control form-control-lg",{
-                    "is-invalid":error.email
-                  })}
-                  
-                  placeholder="Email Address" value={email} name="email" onChange={(e)=>{setemail(e.target.value)}} />
-             {error.email&&<div className="invalid-feedback">
-               {error.email}
-               </div> }
+              <form onSubmit={onSubmit} noValidate>
+              <TextFieldGroup 
+              type="email"
+              name="emial"
+              placeholder='Email Address'
+              value={email}
+              error={error.Email}
+              onChange={handleEmail}
+              />
+
+              <TextFieldGroup 
+              type="password"
+              name="Password"
+              placeholder='Password'
+              value={password}
+              error={error.Password}
+              onChange={handlePassword}
+              />
+              
                 
-                  </div>
-                <div className="form-group">
-                  <input type="password" className={classname("form-control form-control-lg",{
-                    "is-invalid":error.password
-                  })}
-                  placeholder="Password"  value={password}   name="password" onChange={(e)=>{setpassword(e.target.value)}} />
-                  {error.password&&<div className="invalid-feedback">
-                  {error.password}
-                  </div> }
-                  </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
@@ -77,4 +87,12 @@ const mapStateToProps=(state)=>({
   error:state.errors
 })
 
-export default connect(mapStateToProps,{LoginUser})(Login)
+const mapDispatchToProps=(dispatch)=>({
+  LoginUser:(User)=>(dispatch(LoginUser(User))),
+  clearError:()=>(dispatch({
+    type:GET_ERRORS,
+    payload:{}
+     }))
+ })
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

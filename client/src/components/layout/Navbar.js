@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logoutUser}  from '../../action/auth'
+import {clearCurrentProfile} from '../../action/profile'
+
 const Navbar =(props)=>{
     
    const {isAuthenticate,user}=props.auth
@@ -10,6 +12,7 @@ const Navbar =(props)=>{
      e.preventDefault()
      console.log('logout is called')
      props.logoutUser()
+     props.clearCurrentProfile()
    }
 
     const guestLinks=(
@@ -91,4 +94,4 @@ const mapStateToProps=(state)=>({
 
 })
 
-export default connect(mapStateToProps,{logoutUser})( Navbar);
+export default connect(mapStateToProps,{logoutUser,clearCurrentProfile})( Navbar);
