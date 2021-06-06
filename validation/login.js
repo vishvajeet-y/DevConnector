@@ -8,17 +8,17 @@ const validateLoginInput=(data)=>{
   
     if(!validator.isEmail(data.email))
     {
-        errors.email='Email is invalid'
+        errors.Email='Email is invalid'
     }
     
     if(validator.isEmpty(data.email))
     {
-        errors.email='Email field is required'
+        errors.Email='Email field is required'
     }
 
     if(validator.isEmpty(data.password))
     {
-        errors.password='Password  field is required'
+        errors.Password='Password  field is required'
     }
     
     return {

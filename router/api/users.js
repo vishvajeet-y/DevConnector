@@ -77,7 +77,7 @@ router.post('/login',async(req,res)=>{
     const user=await User.findOne({email})
       if(!user)
      { 
-        errors.email='User not found' 
+        errors.Email='User not found' 
         return res.status(400).json(errors)
     }
 
@@ -99,7 +99,7 @@ router.post('/login',async(req,res)=>{
                 token:'Bearer '+token
             })
         }
-        errors.password='Password incorrect'
+        errors.Password='Password incorrect'
         return res.status(400).json(errors)
      
 })
