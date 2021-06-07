@@ -14,6 +14,9 @@ import configurestore from '../store/configureStore'
 import { clearCurrentProfile } from '../action/profile'
 import PrivateRoute from './PrivateRoute'
 import CreateProfile from '../components/create-profile/CreateProfile'
+import EditProfile from '../components/edit-profile/EditProfile'
+import AddExperience from '../components/add-credential/AddExperience'
+import AddEducation from '../components/add-credential/AddEducation'
 const store=configurestore()
 
 //Check for token
@@ -54,6 +57,9 @@ export const App = () => {
         <Route path='/register' component={Register} />
         <PrivateRoute path='/dashboard'  component={Dashboard}/>
         <PrivateRoute path='/create-profile'  component={CreateProfile}/>
+        <PrivateRoute path='/edit-profile'  component={EditProfile}/>
+        <PrivateRoute path='/add-experience'  component={AddExperience}/>
+        <PrivateRoute path='/add-education'  component={AddEducation}/>
         </Switch>
          <Footer />
          

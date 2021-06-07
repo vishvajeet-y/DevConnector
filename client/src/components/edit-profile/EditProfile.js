@@ -1,13 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router'
+import {Link,withRouter} from 'react-router-dom'
 import TextFieldGroup from '../common/TextFieldGroup'
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
 import SelectListGroup from '../common/SelectListGroup'
 import InputGroup from '../common/InputGroup'
-import {createProfile} from '../../action/profile'
+import {createProfile,getCurrentProfile} from '../../action/profile'
+import isEmpty from '../../validation/isEmpty'
 
-const CreateProfile=(props)=> {
+const EditProfile=(props)=> {
   
     const[displaySocialInputs,setSocialInputs]=useState(false)
     const[handle,sethandle]=useState('')
@@ -47,6 +48,34 @@ const CreateProfile=(props)=> {
            // console.log(profileData)
             props.createProfile(profileData,props.history)
      }
+     useEffect(()=>{
+        //    console.log('useeffect is running');
+            props.getCurrentProfile()
+          
+            },[])
+
+     useEffect(()=>{
+        const profile=props.profile.profile
+        
+        if(profile){
+            console.log(profile)
+            //Bring back Skills array to be CSV
+            const skillsCSV=profile.skills.join(',')
+            sethandle(profile.handle)
+            setstatus(profile.status)
+            setskills(skillsCSV)
+            setcompany(!isEmpty(profile.company)?profile.company:'')
+            setwebsite(!isEmpty(profile.website)?profile.website:'')
+            setgithubusername(!isEmpty(profile.githubusername)?profile.githubusername:githubusername)
+            setbio(!isEmpty(profile.bio)?profile.bio:'')
+            settwitter(!isEmpty(profile.social.twitter)?profile.social.twitter:'')
+            setfacebook(!isEmpty(profile.social.facebook)?profile.social.facebook:'')
+            setlinkedin(!isEmpty(profile.social.linkedin)?profile.social.linkedin:'')
+            setyoutube(!isEmpty(profile.social.youtube)?profile.social.youtube:'')
+            setinstagram(!isEmpty(profile.social.instagram)?profile.social.instagram:'')
+        }
+        },[props.profile])
+
 
      useEffect(()=>{
         //    console.log('useeffect is running');
@@ -176,14 +205,13 @@ const CreateProfile=(props)=> {
     }
 
     return (
-        <div className="create-profile">
+        <div className="edit-profile">
         <div className="container">
         <div className="row">
         <div className="col-md-8 m-auto">
-        <h1 className="display-4 text-center">Create Your Profile</h1>
-       <p className="lead text-center">
-       Let's get some information to make your profile stand out
-       </p>
+        <Link to="/dashboard" className="btn btn-light">Go Back</Link>
+        <h1 className="display-4 text-center">Edit Profile</h1>
+     
        <small className="d-block pb-3">*=required fields</small>
        <form onSubmit={onSubmit}>
        <TextFieldGroup 
@@ -287,4 +315,4 @@ const mapStateToProps=(state)=>({
     error:state.errors
 })
 
-export default connect(mapStateToProps,{createProfile})(withRouter(CreateProfile))
+export default connect(mapStateToProps,{createProfile,getCurrentProfile})(withRouter(EditProfile))
