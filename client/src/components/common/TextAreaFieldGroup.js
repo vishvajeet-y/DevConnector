@@ -12,7 +12,7 @@ import classname from 'classnames'
  })=>  {
     return (
        
-        <div className="form-group">
+        <div className="form-group mb-2">
           <textarea
             className={classname("form-control form-control-lg ",{
             "is-invalid":error

@@ -71,7 +71,7 @@ import {GET_ERRORS} from '../../action/types'
               />
               
                 
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" value="Submit" className="btn btn-info col-12 mt-4" />
               </form>
             </div>
           </div>
