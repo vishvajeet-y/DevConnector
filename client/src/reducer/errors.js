@@ -1,4 +1,3 @@
-import React from 'react'
 import {GET_ERRORS} from '../action/types'
 const initialstate={}
  const errors=(state=initialstate,action)=> {

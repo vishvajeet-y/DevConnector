@@ -6,7 +6,7 @@ const PrivateRoute=({auth,component:Component,...rest })=> {
     // console.log(Component)
     
     // console.log({...rest})
-    const {isAuthenticate}=auth
+   // const {isAuthenticate}=auth
     return (
         // isAuthenticate===true?(<Route {...props} />):(<Redirect to="/login"/>)
         <Route 

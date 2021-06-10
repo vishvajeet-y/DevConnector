@@ -138,14 +138,25 @@ router.post('/',passport.authenticate('jwt',{session:false}),async(req,res)=>{
    const profile=await Profile.findOne({user:req.user.id})
    if(profile){
        //Update
-           const profile= await Profile.findOneAndUpdate(
+       
+     //If user want to update its handle then we 
+     //Check if other user handle exists with same handle 
+      const profile_handle=await Profile.findOne({handle:profileFields.handle})
+      // we find a profile and check whether that profile is   
+      //of our user who want to update his handle , if it 
+      //not then we are giving error
+      if(profile_handle && profile_handle._id.toString()!==profile._id.toString()){
+          errors.handle='That handle already exist'
+          return res.status(400).json(errors)
+      }
+           const updatedprofile= await Profile.findOneAndUpdate(
                {user:req.user.id},
                {$set:profileFields},
                {new:true}
                )
 
-               if(profile)
-               return res.json(profile)
+               if(updatedprofile)
+               return res.json(updatedprofile)
                else{
                    errors.update='Some error occur during update'
                    res.status(400).json(errors)

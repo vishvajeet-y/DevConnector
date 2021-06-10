@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {SET_CURRENT_USER} from '../action/types'
 import isEmpty from '../validation/isEmpty'
 
