@@ -26,11 +26,11 @@ return (dispatch)=>{
 
 //Login user and get token
 
-export const LoginUser=(userData,history)=>{
+export const LoginUser=(userData)=>{
 
   return (dispatch)=>{
         axios.post('/api/users/login',userData).then((res)=>{
-          console.log(res.data)
+          //console.log(res.data)
           const {token}=res.data
           //save token to loacal storage
           localStorage.setItem('jwtToken',token)

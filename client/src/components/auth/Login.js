@@ -23,7 +23,7 @@ import {GET_ERRORS} from '../../action/types'
       email,
       password
     }
-     console.log(User)
+    // console.log(User)
     props.LoginUser(User)
    
   }
@@ -39,7 +39,7 @@ import {GET_ERRORS} from '../../action/types'
   },[props.auth.isAuthenticate])
 
     useEffect(()=>{
-     // console.log('error is running')
+      //console.log('error is running')
        seterror(props.error)
     },[props.error])
 

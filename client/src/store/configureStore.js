@@ -5,7 +5,7 @@ import authReducer from '../reducer/auth'
 import profileReducer from '../reducer/profile'
 
 const composeEnhancer= window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-export default ()=>{
+ const ConfigureStore=()=>{
 const store=createStore(combineReducers({
    errors:errorReducer,
    auth:authReducer,
@@ -19,5 +19,5 @@ composeEnhancer(applyMiddleware(thunk))
 )
 return store
 }
-
+export default ConfigureStore
  

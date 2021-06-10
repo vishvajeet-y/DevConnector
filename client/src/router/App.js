@@ -2,6 +2,7 @@ import React from 'react'
 import {BrowserRouter,Route,Switch} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import jwt_decode from 'jwt-decode'
+import {CSSTransition,TransitionGroup} from 'react-transition-group'
 import setAuthToken from '../utils/setAuthToken'
 import {logoutUser, setCurrentUser} from '../action/auth'
 import Navbar from '../components/layout/Navbar'
@@ -17,6 +18,10 @@ import CreateProfile from '../components/create-profile/CreateProfile'
 import EditProfile from '../components/edit-profile/EditProfile'
 import AddExperience from '../components/add-credential/AddExperience'
 import AddEducation from '../components/add-credential/AddEducation'
+import Profiles from '../components/profiles/Profiles'
+import Profile from '../components/profile/Profile'
+import NotFound from '../components/not-found/NotFound'
+import './App.css'
 const store=configurestore()
 
 //Check for token
@@ -49,19 +54,41 @@ export const App = () => {
     return (
         <Provider store={store}>
         <BrowserRouter>
-        <div className="App">
-        <Navbar /> 
-        <Switch>
-        <Route exact={true} path='/' component={Landing} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-        <PrivateRoute path='/dashboard'  component={Dashboard}/>
-        <PrivateRoute path='/create-profile'  component={CreateProfile}/>
-        <PrivateRoute path='/edit-profile'  component={EditProfile}/>
-        <PrivateRoute path='/add-experience'  component={AddExperience}/>
-        <PrivateRoute path='/add-education'  component={AddEducation}/>
-        </Switch>
-         <Footer />
+        <div className="App" >
+        <Navbar />
+        <Route render={({location})=>{
+        //    console.log(location)
+         return  <TransitionGroup>
+            <CSSTransition 
+            key={location.key}
+            timeout={450}
+            classNames="fade"
+            exit={false}
+            >
+            <div className="page">
+            <Switch location={location}>
+            <Route exact={true} path='/' component={Landing} />
+            <Route exact={true} path='/login' component={Login} />
+            <Route exact={true} path='/register' component={Register} />
+            <Route exact={true} path="/profiles" component={Profiles} />
+            <Route exact={true} path="/profile/:handle" component={Profile} />
+            <PrivateRoute exact={true} path='/dashboard'  component={Dashboard}/>
+            <PrivateRoute exact={true} path='/create-profile'  component={CreateProfile}/>
+            <PrivateRoute exact={true} path='/edit-profile'  component={EditProfile}/>
+            <PrivateRoute exact={true} path='/add-experience'  component={AddExperience}/>
+            <PrivateRoute exact={true} path='/add-education'  component={AddEducation}/>
+            <Route  component={NotFound} />
+            </Switch>
+            <Footer />
+            </div>
+            </CSSTransition>
+            </TransitionGroup> 
+         
+        }}/>  
+        
+        
+        
+        
          
          </div>
         

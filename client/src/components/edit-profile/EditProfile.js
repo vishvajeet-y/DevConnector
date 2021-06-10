@@ -58,15 +58,16 @@ const EditProfile=(props)=> {
         const profile=props.profile.profile
         
         if(profile){
-            console.log(profile)
+           //console.log(profile)
             //Bring back Skills array to be CSV
             const skillsCSV=profile.skills.join(',')
             sethandle(profile.handle)
             setstatus(profile.status)
+            setlocation(profile.location)
             setskills(skillsCSV)
             setcompany(!isEmpty(profile.company)?profile.company:'')
             setwebsite(!isEmpty(profile.website)?profile.website:'')
-            setgithubusername(!isEmpty(profile.githubusername)?profile.githubusername:githubusername)
+            setgithubusername(!isEmpty(profile.githubusername)?profile.githubusername:'')
             setbio(!isEmpty(profile.bio)?profile.bio:'')
             settwitter(!isEmpty(profile.social.twitter)?profile.social.twitter:'')
             setfacebook(!isEmpty(profile.social.facebook)?profile.social.facebook:'')
@@ -74,7 +75,7 @@ const EditProfile=(props)=> {
             setyoutube(!isEmpty(profile.social.youtube)?profile.social.youtube:'')
             setinstagram(!isEmpty(profile.social.instagram)?profile.social.instagram:'')
         }
-        },[props.profile])
+        },[props.profile.profile])
 
 
      useEffect(()=>{

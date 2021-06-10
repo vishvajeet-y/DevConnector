@@ -10,7 +10,7 @@ const Navbar =(props)=>{
 
    const onLogoutClick=(e)=>{
      e.preventDefault()
-     console.log('logout is called')
+    // console.log('logout is called')
      props.logoutUser()
      props.clearCurrentProfile()
    }
@@ -38,8 +38,8 @@ const Navbar =(props)=>{
       </Link>
       </li>
        <li className="nav-item">
-       <a className="nav-link" href="#"
-       onClick={onLogoutClick}
+       <button type="button" className="btn nav-link"
+        onClick={onLogoutClick}
        >
        <img 
        className="rounded-circle"
@@ -53,7 +53,8 @@ const Navbar =(props)=>{
        }}
        ></img>
         Logout
-       </a>
+     
+       </button>
        </li>
      
      </ul>

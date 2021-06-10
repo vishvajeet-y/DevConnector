@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+ const Footer=() => {
   return (
     <div className="mt-auto">
 
@@ -10,3 +10,4 @@ export default () => {
     </div>
   );
 };
+export default Footer
