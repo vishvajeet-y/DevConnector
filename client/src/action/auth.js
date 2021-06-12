@@ -7,7 +7,7 @@ import setAuthToken from '../utils/setAuthToken'
 export const registerUser=(userData,history)=>{
 return (dispatch)=>{
      axios.post('/api/users/register',userData).then(res=>{
-      console.log(res.data)
+  //    console.log(res.data)
       dispatch({
         type:GET_ERRORS,
         payload:{}

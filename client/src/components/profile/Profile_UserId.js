@@ -1,20 +1,21 @@
 import React ,{useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import ProfileAbout from './ProfileAbout'
 import ProfileCreds from './ProfileCreds'
 import ProfileGithub from './ProfileGithub'
 import ProfileHeader from './ProfileHeader'
 import Spinner from '../common/Spinner'
-import {getProfileByhandle} from '../../action/profile'
+import {getProfileByUserId} from '../../action/profile'
 
 const Profile=(props)=> {
+  
     const {loading,profile}=props.profile
     const {isAuthenticate}=props.auth
    useEffect(()=>{
-       if(props.match.params.handle)
-       props.getProfileByhandle(props.match.params.handle)
+       if(props.match.params.userId)
+       props.getProfileByUserId(props.match.params.userId)
    },[])
+
 
    useEffect(()=>{
     //It fix problem where When user is logged in and seeing it's profile
@@ -24,10 +25,17 @@ const Profile=(props)=> {
     //it started showing spinner from infinity.
     if(!isAuthenticate)
  {  //console.log(isAuthenticate)
-      props.getProfileByhandle(props.match.params.handle) }
+      props.getProfileByUserId(props.match.params.userId) }
       },[isAuthenticate])
    
-   
+    useEffect(()=>{
+       // console.log(props.error)
+        if(Object.keys(props.error).length>0)
+        {
+            props.history.push('/pagenotfound')
+        }
+    },[props.error])
+
 
    let profileContent
     if(profile===null||loading){
@@ -39,8 +47,8 @@ const Profile=(props)=> {
                <div className="row">
                <div className="col-md-6">
                <button onClick={(e)=>{window.history.back()}} className="btn btn-light mb-3 float-left">
-               Go Back
-              </button>
+                Go Back
+               </button>
                </div>
                <div className="col-md-6"></div>
                </div>
@@ -68,7 +76,8 @@ const Profile=(props)=> {
 
 const mapStateToProps=(state)=>({
     auth:state.auth,
-    profile:state.profile
+    profile:state.profile,
+    error:state.errors
 })
 
-export default connect(mapStateToProps,{getProfileByhandle})(Profile)
+export default connect(mapStateToProps,{getProfileByUserId})(Profile)

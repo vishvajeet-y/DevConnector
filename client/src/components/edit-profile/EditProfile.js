@@ -69,11 +69,13 @@ const EditProfile=(props)=> {
             setwebsite(!isEmpty(profile.website)?profile.website:'')
             setgithubusername(!isEmpty(profile.githubusername)?profile.githubusername:'')
             setbio(!isEmpty(profile.bio)?profile.bio:'')
+            if(profile.social){
             settwitter(!isEmpty(profile.social.twitter)?profile.social.twitter:'')
             setfacebook(!isEmpty(profile.social.facebook)?profile.social.facebook:'')
             setlinkedin(!isEmpty(profile.social.linkedin)?profile.social.linkedin:'')
             setyoutube(!isEmpty(profile.social.youtube)?profile.social.youtube:'')
             setinstagram(!isEmpty(profile.social.instagram)?profile.social.instagram:'')
+            }
         }
         },[props.profile.profile])
 

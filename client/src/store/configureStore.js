@@ -3,13 +3,15 @@ import thunk from 'redux-thunk'
 import errorReducer from '../reducer/errors'
 import authReducer from '../reducer/auth'
 import profileReducer from '../reducer/profile'
+import postReducer from '../reducer/post'
 
 const composeEnhancer= window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
  const ConfigureStore=()=>{
 const store=createStore(combineReducers({
    errors:errorReducer,
    auth:authReducer,
-   profile:profileReducer
+   profile:profileReducer,
+   post:postReducer
 }),
 composeEnhancer(applyMiddleware(thunk))
 // compose(
