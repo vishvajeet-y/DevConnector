@@ -39,7 +39,7 @@ const  Register=(props)=> {
       password,
       password2
     }
-            console.log(newUser)
+          //  console.log(newUser)
             props.registerUser(newUser,props.history)
      
   

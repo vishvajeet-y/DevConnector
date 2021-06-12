@@ -20,8 +20,12 @@ import AddExperience from '../components/add-credential/AddExperience'
 import AddEducation from '../components/add-credential/AddEducation'
 import Profiles from '../components/profiles/Profiles'
 import Profile from '../components/profile/Profile'
+import Posts from '../components/posts/Posts'
+import Post from '../components/post/Post'
+import UserNotFound from '../components/not-found/UserNotFound'
 import NotFound from '../components/not-found/NotFound'
 import './App.css'
+import Profile_UserId from '../components/profile/Profile_UserId'
 const store=configurestore()
 
 //Check for token
@@ -72,11 +76,15 @@ export const App = () => {
             <Route exact={true} path='/register' component={Register} />
             <Route exact={true} path="/profiles" component={Profiles} />
             <Route exact={true} path="/profile/:handle" component={Profile} />
+            <Route exact={true} path="/Userprofile/:userId" component={Profile_UserId} />
             <PrivateRoute exact={true} path='/dashboard'  component={Dashboard}/>
             <PrivateRoute exact={true} path='/create-profile'  component={CreateProfile}/>
             <PrivateRoute exact={true} path='/edit-profile'  component={EditProfile}/>
             <PrivateRoute exact={true} path='/add-experience'  component={AddExperience}/>
             <PrivateRoute exact={true} path='/add-education'  component={AddEducation}/>
+            <PrivateRoute exact={true} path='/feed'  component={Posts}/>
+            <PrivateRoute exact={true} path='/post/:id'  component={Post}/>
+            <Route exact={true} path="/pagenotfound"  component={UserNotFound} />
             <Route  component={NotFound} />
             </Switch>
             <Footer />
